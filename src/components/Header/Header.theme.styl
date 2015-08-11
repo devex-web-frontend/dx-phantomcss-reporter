@@ -1,0 +1,22 @@
+@import '../../config.styl';
+
+.header {
+	background-color: #ffffff;
+
+	&-success {
+		border-color: $success-color;
+		.header {
+			&--status {
+				color: $success-color;
+			}
+		}
+	}
+	&-fail {
+		border-color: $error-color;
+		.header {
+			&--status {
+				color: $error-color;
+			}
+		}
+	}
+}

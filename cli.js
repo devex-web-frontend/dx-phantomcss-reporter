@@ -41,17 +41,13 @@ function report(configPath, options) {
 
 	var results = config.comparisonResultRoot;
 	var failed = config.failedComparisonsRoot;
-	var pjson = require(path.resolve('package.json'));
 
-	//TODO: take links from TeamCity ENV variables
 	var report = {
 		project: {
-			name: pjson.name,
-			link: '#'
+			name: process.env['TEAMCITY_PROJECT_NAME'] || ''
 		},
 		build: {
-			number: pjson.version,
-			link: '#'
+			number: process.env['BUILD_NUMBER'] || ''
 		},
 		success: !fs.existsSync(failed),
 		suits: glob.sync(results + '/*').sort(alphanumeric.compare).map(processSuite.bind(this, failed, pathShift))

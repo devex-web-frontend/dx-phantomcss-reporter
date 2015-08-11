@@ -19,7 +19,7 @@ export default React.createClass({
 		return (
 			<div className="navigation build">
 				<div className="navigation--header">
-					Build: <a href={build.link}>#{build.number}</a>
+					Build: #{build.number}
 				</div>
 				<div className="navigation--list">
 					{links}

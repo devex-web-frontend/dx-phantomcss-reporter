@@ -3,13 +3,11 @@ import React from 'react';
 //TODO: replace with immutables
 
 export const build = React.PropTypes.objectOf({
-	number: React.PropTypes.string.isRequired,
-	link: React.PropTypes.string.isRequired
+	number: React.PropTypes.string.isRequired
 });
 
 export const project = React.PropTypes.objectOf({
-	name: React.PropTypes.string.isRequired,
-	link: React.PropTypes.string.isRequired
+	name: React.PropTypes.string.isRequired
 });
 
 export const test = React.PropTypes.objectOf({

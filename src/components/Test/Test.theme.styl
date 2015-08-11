@@ -11,6 +11,13 @@
 			box-shadow: 0 1px 0 #ffffff inset;
 		}
 	}
+	&--screenshot {
+		transition: filter .1s ease;
+		transition: -webkit-filter .1s ease;
+		&:hover {
+			filter: brightness(120%);
+		}
+	}
 	&-success {
 		&:after {
 			background-color: $success-color;

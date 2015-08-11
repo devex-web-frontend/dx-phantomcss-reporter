@@ -8,7 +8,6 @@ import Header from '../Header/Header.jsx';
 import * as propTypes from '../../util/propTypes';
 
 import './App.styl';
-import './App.theme.styl';
 
 export default React.createClass({
 	propTypes: {
@@ -16,12 +15,12 @@ export default React.createClass({
 	},
 
 	render() {
-		let {build, project, suits} = this.props.data;
+		let {build, project, suits, success} = this.props.data;
 
 		return (
 			<div className={`app ${this.props.data.success ? 'app-success' : 'app-fail'}`}>
 				<div className="app--header">
-					<Header build={build} project={project}/>
+					<Header build={build} project={project} success={success}/>
 				</div>
 
 				<aside className="app--aside">
