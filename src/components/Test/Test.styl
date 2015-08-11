@@ -13,8 +13,22 @@
 		height: 100%;
 		display: none;
 	}
+	&:hover {
+		& + .test.test-active:before {
+			content: '';
+			position: absolute;
+			top: -3px;
+			left: 0;
+			height: 3px;
+			width: 100%;
+			background-color: #ffffff;
+		}
+	}
 	&:last-child {
 		margin-bottom: 0;
+		&.test-active {
+			border-bottom: none;
+		}
 	}
 
 	&--title {
@@ -59,7 +73,12 @@
 		}
 	}
 
+	&--screenshotDescription {
+		font-size: 12px;
+	}
+
 	&-active {
+		border-bottom: 3px solid;
 		&:after {
 			display: block;
 		}

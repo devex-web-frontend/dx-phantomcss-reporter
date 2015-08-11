@@ -6,14 +6,11 @@
 		background-color: lighten($separator-color, 30%);
 	}
 	&.test-active {
-		//box-shadow: 0 -3px 0
 		background-color: lighten($separator-color, 60%);
-		& + .test.test-active {
-			box-shadow: 0 3px 0 #ffffff inset;
-		}
+		border-bottom-color: #ffffff;
 	}
 	&-success {
-		&:after {
+		&:after { 
 			background-color: $success-color;
 		}
 		.test {
