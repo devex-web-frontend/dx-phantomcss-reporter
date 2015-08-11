@@ -5,10 +5,9 @@ var autoprefixer = require('autoprefixer-core');
 var production = process.env.NODE_ENV === 'production';
 
 module.exports = {
-	context: path.resolve('src'),
 	entry: {
-		js: (production ? [] : ['webpack/hot/dev-server']).concat('./index.js'),
-		css: ['./index.styl']
+		js: (production ? [] : ['webpack/hot/dev-server']).concat(path.resolve('./src/index.js')),
+		css: [path.resolve('./src/index.styl')]
 	},
 	output: {
 		filename: 'bundle.js',
@@ -41,7 +40,7 @@ module.exports = {
 	},
 	resolve: {
 		alias: {
-			'dx-phantomcss-report': '../temp.json'
+			'dx-phantomcss-report': path.resolve('./temp.json')
 		}
 	},
 	stylus: {
