@@ -1,0 +1,49 @@
+@import '../../config.styl';
+
+.navigation {
+	&--header {
+		background-color: $separator-color;
+		border-color: $separator-color;
+	}
+	&--item {
+		transition: background-color .1s ease;
+		&:hover {
+			background-color: lighten($separator-color, 30%);
+		}
+		&.active {
+			background-color: lighten($separator-color, 60%);
+		}
+		&-success {
+			&.active {
+				&:after {
+					background-color: $success-color;
+				}
+			}
+			.navigation {
+				&--item {
+					&Icon {
+						color: $success-color;
+					}
+				}
+			}
+		}
+		&-fail {
+			&.active {
+				&:after {
+					backgorund-color: $error-color;
+				}
+			}
+			.navigation {
+				&--item {
+					&Icon {
+						color: $error-color;
+					}
+				}
+			}
+		}
+	}
+	&--header,
+	&--item {
+		color: $text-color;
+	}
+}

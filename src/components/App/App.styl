@@ -1,143 +1,27 @@
 @import '../../config.styl';
 
-.layout {
+.app {
+	$headerHeight = 65px;
+	$asideWidth = 300px;
+
 	height: 100%;
-	display: flex;
-	flex-direction: column;
+	position: relative;
 
 	&--header {
-		padding: 20px;
-		font-size: 20px
-		display: flex;
-		align-items: center;
-		border-bottom: 5px solid;
+		position: fixed;
+		width: 100%;
+		height: $headerHeight;
 	}
-	&--headerLink {
-		margin-left: auto;
-		font-size: 16px;
-		&:hover {
-			text-decoration: underline;
-		}
-	}
-	&--main {
-		flex: 1;
-		display: flex;
-		overflow: auto;
-	}
-	&--navigation {
-		width: 300px;
-		border-right: 1px solid $separator-color;
+
+	&--aside {
+		position: fixed;
+		top: $headerHeight;
+		bottom: 0;
+		width: $asideWidth;
+		border-right: 1px solid;
 	}
 	&--content {
-		flex: 1;
-	}
-
-	&-success {
-		.layout {
-			&--header {
-				border-color: $success-color;
-			}
-		}
-	}
-	&-fail {
-		.layout {
-			&--header {
-				border-color: $error-color;
-			}
-		}
-	}
-}
-
-.navigation {
-	&--header {
-		border-bottom: 1px solid $separator-color;
-		font-size: 16px;
-		line-height: 24px;
-		background-color: $separator-color;
-	}
-	&--list {
-
-	}
-	&--item {
-		display: flex;
-		cursor: pointer;
-		//border-bottom: 1px dashed $separator-color;
-		transition: background-color .1s ease;
-
-		position: relative;
-		&:hover {
-			background-color: lighten($separator-color, 30%);
-		}
-		&.active {
-			&:after {
-				content: '';
-				position: absolute;
-				top: 0;
-				right: 0;
-				height: 100%;
-				width: 3px;
-			}
-			background-color: lighten($separator-color, 60%);
-		}
-		&:last-child {
-			//border-bottom-style: solid;
-		}
-		&Title {
-			flex: 1;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			padding-right: 10px;
-		}
-		&Icon {
-			flex-shrink: 0;
-			float: right;
-			line-height: inherit;
-			font-size: 20px;
-		}
-	}
-	&--header,
-	&--item {
-		line-height: 50px;
-		padding: 0 20px;
-		color: $text-color;
-	}
-}
-
-.build {
-	&--suite {
-		&-success {
-			.build {
-				&--suiteStatus {
-					color: $success-color;
-				}
-			}
-			&.navigation--item {
-				&.active {
-					&:after {
-						background-color: $success-color;
-					}
-				}
-			}
-		}
-		&-fail {
-			.build {
-				&--suiteStatus {
-					color: $error-color;
-				}
-			}
-			&.navigation--item {
-				&.active {
-					&:after {
-						background-color: $error-color;
-					}
-				}
-			}
-		}
-	}
-	&--suiteName {
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
+		padding-top: $headerHeight;
+		padding-left: $asideWidth;
 	}
 }

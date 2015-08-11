@@ -4,10 +4,16 @@
 	&--title {
 		line-height: 50px;
 		padding: 0 $padding;
-		border-bottom: 1px dashed $separator-color;
+		border-bottom: 1px dashed;
+	}
+	&--content {
+		padding: $padding;
 	}
 }
 
 .test {
-
+	margin-bottom: $padding;
+	&:last-child {
+		margin-bottom: 0;
+	}
 }

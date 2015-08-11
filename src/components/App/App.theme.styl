@@ -1,0 +1,21 @@
+@import '../../config.styl';
+
+.app {
+	&--aside {
+		border-right-color: $separator-color;
+	}
+	&--header {
+		background-color: #ffffff;
+	}
+
+	&-success {
+		.header {
+			border-color: $success-color;
+		}
+	}
+	&-fail {
+		.header {
+			border-color: $error-color;
+		}
+	}
+}

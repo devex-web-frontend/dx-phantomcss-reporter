@@ -10,7 +10,7 @@ injectTapEventPlugin();
 import App from './components/App/App.jsx';
 import Suite from './components/Suite/Suite.jsx';
 
-import data from '../temp.json';
+import data from 'dx-phantomcss-report'; //should be resolved in webpack config!
 
 let routes = (
 	<Route handler={App} path="/">
