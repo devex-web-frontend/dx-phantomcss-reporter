@@ -1,13 +1,13 @@
 var path = require('path');
 var nib = require('nib');
 var autoprefixer = require('autoprefixer-core');
-//var autoprefixer = require
 var production = process.env.NODE_ENV === 'production';
+var root = path.dirname(__filename);
 
 module.exports = {
 	entry: {
-		js: (production ? [] : ['webpack/hot/dev-server']).concat(path.resolve('./src/index.js')),
-		css: [path.resolve('./src/index.styl')]
+		js: (production ? [] : ['webpack/hot/dev-server']).concat(path.resolve(root, './src/index.js')),
+		css: [path.resolve(root, './src/index.styl')]
 	},
 	output: {
 		filename: 'bundle.js',
@@ -40,7 +40,7 @@ module.exports = {
 	},
 	resolve: {
 		alias: {
-			'dx-phantomcss-report': path.resolve('./temp.json')
+			'dx-phantomcss-report': path.resolve(root, './temp.json')
 		}
 	},
 	stylus: {
