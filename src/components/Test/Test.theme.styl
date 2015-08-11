@@ -1,0 +1,35 @@
+@import '../../config.styl';
+
+.test {
+	transition: background-color .1s ease;
+	&:hover {
+		background-color: lighten($separator-color, 30%);
+	}
+	&.test-active {
+		//box-shadow: 0 -3px 0
+		background-color: lighten($separator-color, 60%);
+		& + .test.test-active {
+			box-shadow: 0 3px 0 #ffffff inset;
+		}
+	}
+	&-success {
+		&:after {
+			background-color: $success-color;
+		}
+		.test {
+			&--status {
+				color: $success-color;
+			}
+		}
+	}
+	&-fail {
+		&:after {
+			background-color: $error-color;
+		}
+		.test {
+			&--status {
+				color: $error-color;
+			}
+		}
+	}
+}

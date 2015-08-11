@@ -9,12 +9,17 @@
 
 	&--header {
 		position: fixed;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		z-index: 1;
 		width: 100%;
 		height: $headerHeight;
 	}
 
 	&--aside {
 		position: fixed;
+		z-index: 1;
 		top: $headerHeight;
 		bottom: 0;
 		width: $asideWidth;

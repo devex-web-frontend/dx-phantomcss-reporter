@@ -2,6 +2,8 @@ import React from 'react';
 
 import * as propTypes from '../../util/propTypes';
 
+import Test from '../Test/Test.jsx';
+
 import './Suite.styl';
 import './Suite.theme.styl';
 
@@ -20,7 +22,7 @@ export default React.createClass({
 		if (!suite) {
 			throw new Error(`Unable to find test with index ${testIndex}`);
 		}
-		let tests = this.renderTests(suite);
+		let tests = suite.tests.map((test, i) => <Test test={test} key={i}/>);
 		let options = {
 			itemSelector: '.test'
 		};
@@ -33,16 +35,5 @@ export default React.createClass({
 				</div>
 			</div>
 		);
-	},
-
-	renderTests(suite) {
-		return suite.tests.map((test, i)  => {
-			return (
-				<div className="test" key={i}>
-					<h3 className="test--name">{test.name}</h3>
-					<img src={test.screenshots.baseline} alt={test.name} className="test--screenshots"/>
-				</div>
-			);
-		});
 	}
 });
