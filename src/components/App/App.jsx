@@ -12,7 +12,7 @@ import './App.theme.styl';
 
 export default React.createClass({
 	propTypes: {
-		data: propTypes.data
+		data: propTypes.data.isRequired
 	},
 
 	render() {

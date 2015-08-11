@@ -32,4 +32,4 @@ export const data = React.PropTypes.objectOf({
 	build: build.isRequired,
 	success: React.PropTypes.bool,
 	suits: React.PropTypes.arrayOf(suite).isRequired
-}).isRequired;
+});
