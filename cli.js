@@ -6,6 +6,7 @@ var fs = require('fs');
 var glob = require('glob');
 var mkdirp = require('mkdirp');
 var webpack = require('webpack');
+var alphanumeric = require('alphanumeric-sort');
 
 var cwd = process.cwd();
 var root = path.dirname(__filename);
@@ -53,7 +54,7 @@ function report(configPath, options) {
 			link: '#'
 		},
 		success: !fs.existsSync(failed),
-		suits: glob.sync(results + '/*').map(processSuite.bind(this, failed, pathShift))
+		suits: glob.sync(results + '/*').sort(alphanumeric.compare).map(processSuite.bind(this, failed, pathShift))
 	};
 	report.success = !report.suits.some(function(suite) {
 		return !suite.success;
@@ -87,12 +88,14 @@ function report(configPath, options) {
 function processSuite(failedPath, pathShift, suitePath) {
 	var suiteName = path.basename(suitePath);
 	var suiteFailed = false;
-	var tests = glob.sync(suitePath + '/*.diff.png').reduce(function(acc, diff) {
+	var tests = glob.sync(suitePath + '/*.diff.png').sort(alphanumeric.compare).reduce(function(acc, diff) {
 		var baseName = path.basename(diff);
 		var testName = baseName.replace(/\.diff\.png$/, '');
 
 		var baseline = diff.replace(/\.diff\.png$/, '.png');
-		var fail = path.resolve(failedPath, suiteName, baseName.replace(/\.diff\.png$/, '.fail.png'));
+		var fail = path.relative(cwd,
+			path.resolve(failedPath, suiteName, baseName.replace(/\.diff\.png$/, '.fail.png'))
+		);
 		var test = {
 			name: testName,
 			screenshots: {
@@ -101,7 +104,7 @@ function processSuite(failedPath, pathShift, suitePath) {
 			}
 		};
 		if (fs.existsSync(fail)) {
-			test.fail = path.join(pathShift, fail);
+			test.screenshots.fail = path.join(pathShift, fail);
 			suiteFailed = true;
 		}
 

@@ -29,6 +29,8 @@ export default React.createClass({
 			'zmdi-alert-circle-o': !success
 		});
 
+		let screenshots = this.renderScreenshots(test);
+
 		return (
 			<div className={testClassName} onClick={this.onClick}>
 				<h3 className="test--title">
@@ -36,12 +38,7 @@ export default React.createClass({
 					<span className="test--name">{test.name}</span>
 				</h3>
 				<div className="test--content">
-					<a href={test.screenshots.baseline} target="_blank" className="test--screenshot">
-						<img src={test.screenshots.baseline}
-							 alt={test.name}
-							 className="test--screenshotImage"
-							 onClick={this.onScreenshotClick}/>
-					</a>
+					{screenshots}
 				</div>
 			</div>
 		);
@@ -54,7 +51,33 @@ export default React.createClass({
 	},
 
 	onScreenshotClick(event) {
-		console.log(event);
 		event.stopPropagation();
+	},
+
+	renderScreenshots(test) {
+		let screenshots = ['baseline'];
+		let success = !test.screenshots.fail;
+		if (!success) {
+			screenshots = screenshots.concat(['diff', 'fail']);
+		}
+		return screenshots.map((screenshot, i) => {
+			let linkContent = [
+				<img src={test.screenshots[screenshot]}
+					 alt={`${test.name} ${screenshot}`}
+					 className="test--screenshotImage"
+					 key="test--screenshotImage"
+					 onClick={this.onScreenshotClick}/>
+			];
+			if (!success) {
+				linkContent.unshift(
+					<span className="test--screenshotDescription" key="test--screenshotDescription">{screenshot}</span>
+				);
+			}
+			return (
+				<a href={test.screenshots[screenshot]} target="_blank" className="test--screenshot" key={i}>
+					{linkContent}
+				</a>
+			);
+		});
 	}
 });

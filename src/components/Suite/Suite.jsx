@@ -17,12 +17,12 @@ export default React.createClass({
 	},
 
 	render() {
-		let testIndex = this.context.router.getCurrentParams().suiteIndex;
-		let suite = this.props.data.suits[testIndex];
+		let suiteIndex = this.context.router.getCurrentParams().suiteIndex;
+		let suite = this.props.data.suits[suiteIndex];
 		if (!suite) {
-			throw new Error(`Unable to find test with index ${testIndex}`);
+			throw new Error(`Unable to find test with index ${suiteIndex}`);
 		}
-		let tests = suite.tests.map((test, i) => <Test test={test} key={i}/>);
+		let tests = suite.tests.map((test, i) => <Test test={test} key={`${suiteIndex}_${i}`}/>);
 		let options = {
 			itemSelector: '.test'
 		};
