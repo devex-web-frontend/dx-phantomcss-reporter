@@ -5,9 +5,10 @@ var production = process.env.NODE_ENV === 'production';
 var root = path.dirname(__filename);
 
 module.exports = {
+	context: path.resolve(root),
 	entry: {
-		js: (production ? [] : ['webpack/hot/dev-server']).concat(path.resolve(root, './src/index.js')),
-		css: [path.resolve(root, './src/index.styl')]
+		js: (production ? [] : ['webpack/hot/dev-server']).concat('./src/index.js'),
+		css: ['./src/index.styl']
 	},
 	output: {
 		filename: 'bundle.js',
