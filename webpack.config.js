@@ -17,13 +17,13 @@ module.exports = {
 	module: {
 		loaders: [
 			{
-				test: /\.js$|\.jsx$/,
-				exclude: /node_modules/,
+				test: /\.js$/,
+				exclude: [/dx-phantomcss-reporter\/node_modules/, /node_modules\/(?!dx-phantomcss-reporter)/],
 				loaders: (production ? [] : ['react-hot']).concat('babel-loader?stage=0')
 			},
 			{
-				test: /\.sass$|\.scss$/,
-				loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
+				test: /\.jsx$/,
+				loaders: (production ? [] : ['react-hot']).concat('babel-loader?stage=0')
 			},
 			{
 				test: /\.styl$/,
