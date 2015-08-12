@@ -9,7 +9,7 @@ Generates html-report using config from `dx-phantomcss`
 $ npm install --save devex-web-frontend/dx-phantomcss-reporter devex-web-frontend/dx-phantomcss
 ```
 
-NOTE: `dx-phantomcss-report` does not require `dx-phantomcss` as a dependency, but generally it can uses basic config which is located in `dx-phantomcss` package.
+NOTE: `dx-phantomcss-report` does not require `dx-phantomcss` as a dependency, but generally it can use basic config which is located in `dx-phantomcss` package.
 
 ## CLI
 
