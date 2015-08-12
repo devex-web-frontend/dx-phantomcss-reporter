@@ -54,6 +54,15 @@ export default React.createClass({
 		event.stopPropagation();
 	},
 
+	getScreenshotDescription(screenshotType) {
+		let types = {
+			fail: 'difference',
+			baseline: 'original',
+			diff: 'new'
+		};
+		return types[screenshotType];
+	},
+
 	renderScreenshots(test) {
 		let screenshots = ['baseline'];
 		let success = !test.screenshots.fail;
@@ -61,16 +70,17 @@ export default React.createClass({
 			screenshots = screenshots.concat(['diff', 'fail']);
 		}
 		return screenshots.map((screenshot, i) => {
+			let description = this.getScreenshotDescription(screenshot);
 			let linkContent = [
 				<img src={test.screenshots[screenshot]}
-					 alt={`${test.name} ${screenshot}`}
+					 alt={`${test.name} ${description}`}
 					 className="test--screenshotImage"
 					 key="test--screenshotImage"
 					 onClick={this.onScreenshotClick}/>
 			];
 			if (!success) {
 				linkContent.unshift(
-					<span className="test--screenshotDescription" key="test--screenshotDescription">{screenshot}</span>
+					<span className="test--screenshotDescription" key="test--screenshotDescription">{description}</span>
 				);
 			}
 			return (
