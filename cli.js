@@ -53,10 +53,10 @@ function report(configPath, options) {
 	if (suits.length > 0) {
 		var report = {
 			project: {
-				name: process.env['TEAMCITY_PROJECT_NAME'] || ''
+				name: getProjectName()
 			},
 			build: {
-				number: process.env['BUILD_NUMBER'] || ''
+				number: getBuildNumber()
 			},
 			success: !fs.existsSync(failed),
 			suits: suits
@@ -139,4 +139,22 @@ function loadWebpackConfig(reportPath, destination) {
 	webpackConfig.resolve.alias['dx-phantomcss-report'] = reportPath;
 	webpackConfig.output.path = path.resolve(destination);
 	return webpackConfig;
+}
+
+/**
+ * Gets current TeamCity project name from ENV
+ * @returns {String} name
+ */
+function getProjectName() {
+	var projectName = process.env['TEAMCITY_PROJECT_NAME'];
+	var buildConfName = process.env['TEAMCITY_BUILDCONF_NAME'];
+	return `${projectName} ${buildConfName}`;
+}
+
+/**
+ * Gets current TeamCity build number from ENV
+ * @returns {String} number
+ */
+function getBuildNumber() {
+	return process.env['BUILD_NUMBER'] || '';
 }
