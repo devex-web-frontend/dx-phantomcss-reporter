@@ -148,7 +148,7 @@ function loadWebpackConfig(reportPath, destination) {
 function getProjectName() {
 	var projectName = process.env['TEAMCITY_PROJECT_NAME'];
 	var buildConfName = process.env['TEAMCITY_BUILDCONF_NAME'];
-	return `${projectName} ${buildConfName}`;
+	return projectName + ' ' + buildConfName;
 }
 
 /**
