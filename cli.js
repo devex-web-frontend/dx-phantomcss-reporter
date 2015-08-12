@@ -42,36 +42,48 @@ function report(configPath, options) {
 	var results = config.comparisonResultRoot;
 	var failed = config.failedComparisonsRoot;
 
-	var report = {
-		project: {
-			name: process.env['TEAMCITY_PROJECT_NAME'] || ''
-		},
-		build: {
-			number: process.env['BUILD_NUMBER'] || ''
-		},
-		success: !fs.existsSync(failed),
-		suits: glob.sync(results + '/*').sort(alphanumeric.compare).map(processSuite.bind(this, failed, pathShift))
-	};
-	report.success = !report.suits.some(function(suite) {
-		return !suite.success;
-	});
+	var suits = glob
+		.sync(results + '/*')
+		.filter(function(suite) {
+			return fs.statSync(suite).isDirectory();
+		})
+		.sort(alphanumeric.compare)
+		.map(processSuite.bind(this, failed, pathShift));
 
-	var reportPath = path.resolve(destination, 'report.json');
-	console.log('Generating report ', reportPath);
-	mkdirp.sync(destination);
-	fs.writeFileSync(reportPath, JSON.stringify(report, null, 4));
+	if (suits.length > 0) {
+		var report = {
+			project: {
+				name: process.env['TEAMCITY_PROJECT_NAME'] || ''
+			},
+			build: {
+				number: process.env['BUILD_NUMBER'] || ''
+			},
+			success: !fs.existsSync(failed),
+			suits: suits
+		};
+		report.success = !suits.some(function(suite) {
+			return !suite.success;
+		});
 
-	console.log('Bundling resources');
-	fs.writeFileSync(path.resolve(destination, 'index.html'), fs.readFileSync(path.resolve(root, 'index.html')));
+		var reportPath = path.resolve(destination, 'report.json');
+		console.log('Generating report ', reportPath);
+		mkdirp.sync(destination);
+		fs.writeFileSync(reportPath, JSON.stringify(report, null, 4));
 
-	process.env.NODE_ENV = 'production';
-	var webpackConfig = loadWebpackConfig(reportPath, destination);
-	webpack(webpackConfig, function(error, stats) {
-		if (error) {
-			throw error;
-		}
-		console.log('DONE');
-	});
+		console.log('Bundling resources');
+		fs.writeFileSync(path.resolve(destination, 'index.html'), fs.readFileSync(path.resolve(root, 'index.html')));
+
+		process.env.NODE_ENV = 'production';
+		var webpackConfig = loadWebpackConfig(reportPath, destination);
+		webpack(webpackConfig, function(error, stats) {
+			if (error) {
+				throw error;
+			}
+			console.log('DONE');
+		});
+	} else {
+		console.log('No suits found in', results);
+	}
 }
 
 /**
