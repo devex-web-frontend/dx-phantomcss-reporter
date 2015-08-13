@@ -18,7 +18,7 @@ module.exports = {
 		loaders: [
 			{
 				test: /\.js$/,
-				exclude: [/dx-phantomcss-reporter\/node_modules/, /node_modules\/(?!dx-phantomcss-reporter)/],
+				exclude: [/dx-phantomcss-reporter\/node_modules|node_modules(?!\/dx-phantomcss-reporter)/],
 				loaders: (production ? [] : ['react-hot']).concat('babel-loader?stage=0')
 			},
 			{
