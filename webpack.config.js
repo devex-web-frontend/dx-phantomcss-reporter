@@ -1,17 +1,32 @@
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var ReactToHtmlPlugin = require('react-to-html-webpack-plugin');
+
 var path = require('path');
 var nib = require('nib');
 var autoprefixer = require('autoprefixer-core');
 var production = process.env.NODE_ENV === 'production';
 var root = path.dirname(__filename);
 
+var glob = require('glob');
+var webpack = require('webpack');
+
 module.exports = {
 	context: path.resolve(root),
+	//entry: {
+	//	js: (production ? [] : ['webpack/hot/dev-server']).concat('./src/index.js'),
+	//	css: ['./src/index.styl']
+	//},
 	entry: {
-		js: (production ? [] : ['webpack/hot/dev-server']).concat('./src/index.js'),
-		css: ['./src/index.styl']
+		vendor: ['react'],
+		theme: glob.sync('./test/**/*.theme.styl'),
+		css: glob.sync('./test/**/*.styl', {
+			ignore: './test/**/*.theme.styl'
+		}),
+		js: glob.sync('./test/Page.jsx')
 	},
 	output: {
-		filename: 'bundle.js',
+		filename: '[name].js',
+		library: 'umd',
 		path: path.resolve('dist')
 	},
 	module: {
@@ -25,9 +40,14 @@ module.exports = {
 				test: /\.jsx$/,
 				loaders: (production ? [] : ['react-hot']).concat('babel-loader?stage=0')
 			},
+			//{
+			//	test: /\.css$/,
+			//	loaders: [ExtractTextPlugin.extract('style-loader', 'css-loader')]
+			//},
 			{
 				test: /\.styl$/,
-				loaders: ['style-loader', 'css-loader', 'postcss-loader', 'stylus-loader']
+				loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!stylus-loader')
+				//loaders: ['style-loader', 'css-loader', 'postcss-loader', 'stylus-loader']
 			},
 			{
 				test: /\.ttf$|\.woff$|\.woff2$|\.svg$|\.eot$/,
@@ -39,6 +59,12 @@ module.exports = {
 			}
 		]
 	},
+	plugins: [
+		new ExtractTextPlugin('[name].css', {
+			allChunks: true
+		}),
+		//new ReactToHtmlPlugin('js.html', 'js.js')
+	],
 	resolve: {
 		alias: {
 			'dx-phantomcss-report': path.resolve(root, './temp.json')

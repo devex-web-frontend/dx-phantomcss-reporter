@@ -7,7 +7,7 @@
   "scripts": {
     "test": "npm run eslint",
     "eslint": "eslint --config=./node_modules/eslint-config-dx/.react.eslintrc --ext .js,.jsx .",
-    "build": "NODE_ENV=production webpack --progress --colors",
+    "build": "webpack --progress --colors",
     "watch": "webpack --progress --colors --watch",
     "start": "webpack-dev-server --hot --inline"
   },
@@ -25,6 +25,7 @@
     "eslint": "^0.24.1",
     "eslint-config-dx": "git://github.com/devex-web-frontend/eslint-config-dx",
     "eslint-plugin-react": "^3.2.0",
+    "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
     "glob": "^5.0.14",
     "json-loader": "^0.5.2",
@@ -34,6 +35,7 @@
     "react": "^0.13.3",
     "react-router": "^0.13.3",
     "react-tap-event-plugin": "^0.1.7",
+    "react-to-html-webpack-plugin": "^2.2.0",
     "style-loader": "^0.12.3",
     "stylus-loader": "^1.2.1",
     "webpack": "^1.11.0"
